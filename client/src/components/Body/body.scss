@@ -1,0 +1,63 @@
+.body {
+  display: grid;
+  grid-template: 10fr 10fr 3fr/5fr 3fr;
+
+  //   background-color: yellowgreen;
+  .code-editor {
+    background-color: hsl(209, 19%, 30%);
+    color: white;
+    grid-area: 1/1/3/1;
+  }
+  h1 {
+    font-size: 1.2rem;
+    font-weight: lighter;
+    padding: 0.7rem 0.8rem;
+  }
+  textarea {
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: transparent;
+    height: 50%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0.8rem;
+    line-height: 1.5rem;
+    border-collapse: true;
+  }
+  #input {
+    border-bottom: 2px solid hsl(210, 28%, 12%);
+    height: 80%;
+    background: hsla(0, 0%, 100%, 0.116);
+  }
+  #output {
+    background: hsla(0, 0%, 100%, 0.116);
+
+    height: 80%;
+  }
+  .input-section {
+    grid-area: 1/2/2/-1;
+
+  background-color: hsl(209, 37%, 22%);
+    
+    // background-color: hsl(210, 15%, 24%);
+    color: white;
+  }
+  .output-section {
+    grid-area: 2/2/2/-1;
+
+    background-color: hsl(209, 37%, 22%);
+
+    // background-color: hsl(210, 15%, 24%);
+    color: white;
+  }
+  .footer{
+    resize: vertical;
+    overflow: auto;
+    grid-area: 3/1/-1/-1;
+    z-index: 99;
+    background-color: hsl(209, 45%, 18%);
+
+  }
+}
