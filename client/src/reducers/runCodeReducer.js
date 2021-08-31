@@ -3,7 +3,7 @@ export const initialRunCodeState = {
     "loading":false,
     "errors":{}
 }
-export const runCodeReducer = (state = initialSaveCodeState,action) => {
+export const runCodeReducer = (state = initialRunCodeState,action) => {
     switch (action.type) {
         case "LOADING":
             return {
@@ -25,6 +25,6 @@ export const runCodeReducer = (state = initialSaveCodeState,action) => {
             
     
         default:
-         state
+         return state
     }
  }

@@ -1,11 +1,8 @@
 import React,{useState} from 'react'
-import CodeGIF from "../../assets/demo.gif"
-import CodeIMG from "../../assets/code.png"
 import Signup from '../Signup/Signup'
 import "./landing_page.scss"
 
 const LandingPage = () => {
-    const [isModalOpenLogin, setIsModalOpenLogin] = useState(false)
     const [isModalOpenSignup, setIsModalOpenSignup] = useState(false)
     return (
         <div id="landing-page">

@@ -26,7 +26,7 @@ export const codeReducer = (state = initialCodeState,action) => {
            
    
        default:
-        state
+        return state
    }
 }
 

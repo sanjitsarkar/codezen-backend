@@ -26,6 +26,6 @@ export const saveCodeReducer = (state = initialSaveCodeState,action) => {
             
     
         default:
-         state
+         return state
     }
  }

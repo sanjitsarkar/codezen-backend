@@ -2,7 +2,11 @@ const express = require("express")
 const cors = require("cors")
 const app = express()
 const http = require('http').Server(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http,{
+    cors: {
+                origin: ["http://localhost:3000","https://codezzen.netlify.app"]
+            }
+});
 // const io = new Server(server,{
 //     cors: {
 //         origin: "http://localhost:3000"
@@ -13,12 +17,11 @@ const codeRoutes = require("./routes/codeRoutes")
 const authRoutes = require("./routes/authRoutes")
 const mongoose = require("mongoose")
 const MongoStore = require("connect-mongo");
-const Code = require("./models/Code");
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
 });
 // var mongoUri = "mongodb+srv://xanjit:xanjit123@todoly.ygsi4.mongodb.net/todoly?retryWrites=true&w=majority"
@@ -28,18 +31,26 @@ mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlP
         console.log(`Server running on http://localhost:${PORT}`);
     })
 })
-const sessionStore = new MongoStore({ mongoUrl:process.env.MONGODB_LOCAL_URI,mongoOptions:{ useUnifiedTopology: true, useNewUrlParser: true}})
-app.use(cors({origin:"*",credentials:true}))
+const sessionStore = new MongoStore({ mongoUrl:process.env.MONGODB_URI,mongoOptions:{ useUnifiedTopology: true, useNewUrlParser: true}})
+app.use(cors({origin:["https://codezzen.netlify.app"],credentials:true.session,methods:["GET","POST","DELETE"]}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+// app.enable('trust proxy')
+console.log("Hello",process.env.NODE_ENV)
+if(process.env.NODE_ENV == 'production') {
+    console.log("production")
+    app.set('trust proxy', 1)
+}
 app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     store: sessionStore,
     resave:false,
+    cookie:{
+        httpOnly: true, 
+        secure: (process.env.NODE_ENV == 'production')? true : false,
     
-}))
-app.set('trust proxy', 1)
+}}))
 const PORT = 5000
 app.get("/", (_, res) => {
     res.send("Welcome to CodeZen "+_.session?.user?.name)

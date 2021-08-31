@@ -1,8 +1,20 @@
-import React, { useEffect, useState,useContext,useRef, createRef } from 'react'
-import { CodeContext } from '../App/App'
+
+// var editor = ace.edit("editor"); // get reference to editor
+// beautify.beautify(editor.session);
+import React, { useEffect, useState, createRef } from 'react'
+
+import {io} from "socket.io-client"
+
 import AceEditor from 'react-ace'
+import Beautify from 'ace-builds/src-noconflict/ext-beautify'
 // import socket from "../socket/socket"
 // // import mode-<language> , this imports the style and colors for the selected language.
+
+
+import Switch from "react-switch";
+import hostUrl from '../../env'
+import './code_editor.scss'
+import Loading from '../Loader/Loader'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/mode-python'
 import 'ace-builds/src-noconflict/mode-c_cpp'
@@ -11,16 +23,10 @@ import 'ace-builds/src-noconflict/theme-monokai'
 // // this is an optional import just improved the interaction.
 import 'ace-builds/src-noconflict/ext-language_tools'
 import 'ace-builds/src-noconflict/ext-beautify'
-import './code_editor.scss'
-import Beautify from 'ace-builds/src-noconflict/ext-beautify'
-var beautify = ace.require("ace/ext/beautify"); // get reference to extension
-// var editor = ace.edit("editor"); // get reference to editor
-// beautify.beautify(editor.session);
-import {io} from "socket.io-client"
-const SERVER = "https://codezzen.herokuapp.com";
-import Loading from '../Loader/Loader'
+// var beautify = AceEditor.require("ace/ext/beautify"); // get reference to extension
+
+const SERVER = hostUrl;
 const INTERVAL = 10000
-import Switch from "react-switch";
 function CodeEditor({ saveCode,runCode,_code,shareCode,share,user_id}) {
     
     const [socket,setSocket] = useState(io(SERVER))
@@ -173,8 +179,8 @@ int main() {
     }, [fileName])
 
     useEffect(() => {
-        if(language!=="python")
-        beautify.beautify(ref.current.refEditor.env.editor.session);
+        // if(language!=="python")
+        // beautify.beautify(ref.current.refEditor.env.editor.session);
 
     }, [])
     // const fetchCode = async() =>{
@@ -304,13 +310,13 @@ int main() {
                 </div>
                     <div className="save" onClick={(e) => {
                         if(language!=="python")
-        beautify.beautify(ref.current.refEditor.env.editor.session);
+        // beautify.beautify(ref.current.refEditor.env.editor.session);
                         
                         saveCode(e, title, code, format, language)}}><i className="fas fa-save    "></i></div>
                     
                     <div className="run" onClick={(e) =>{ 
                         if(language!=="python")
-                         beautify.beautify(ref.current.refEditor.env.editor.session);
+                        //  beautify.beautify(ref.current.refEditor.env.editor.session);
                         runCode(e, title, code, format, language); setRun(!run)}}>
                        
                             <i className="fa fa-play" aria-hidden="true" ></i>
@@ -353,7 +359,6 @@ int main() {
                     enableMultiselect: true,
                     fixedWidthGutter: true,
                     mergeUndoDeltas: "always",
-                    spellcheck:true,
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true,
                 enableSnippets: true,
@@ -361,7 +366,6 @@ int main() {
                 showLineNumbers: true,
                 animatedScroll: true,
                 autoScrollEditorIntoView: true,
-                enableEmmet: true,
                 fadeFoldWidgets: true,
                 tabSize: 4,
                 cursorStyle:"smooth"

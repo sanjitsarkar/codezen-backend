@@ -26,7 +26,7 @@ export const codesReducer = (state = initialCodesState,action) => {
            
    
        default:
-        initialCodesState
+        return initialCodesState
    }
 }
 
