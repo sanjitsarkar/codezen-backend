@@ -1,10 +1,9 @@
-import React, { useState,useEffect,useContext,useReducer, createContext } from 'react'
+import React, { useState,useEffect,useContext,useReducer, createContext,useRef } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import CodeEditor from '../CodeEditor/CodeEditor'
 import InputSection from '../InputSection/InputSection'
 import OutputSection from '../OutpSection/OutputSection'
 import  './body.scss'
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext, CodeContext } from '../App/App'
 import { ToastContext } from '../App/App'
@@ -31,7 +30,7 @@ function Body() {
     const [outputData, setOutputData] = useState("")
   const [savedCode, dispatchSaveCode] = useReducer(saveCodeReducer, initialSaveCodeState)
   const [output, dispatchRunCode] = useReducer(runCodeReducer, initialRunCodeState)
-
+  const ref = useRef(null);
     const codeId = useParams().id
 //   const [socket,setSocket] = useState(io(SERVER))
 
@@ -140,6 +139,11 @@ console.log("Run Code")
             response = await response.json()
             console.log("Response",await response);
                 dispatchRunCode({type:"SUCCESS",payload:response})
+                if(response.errors)
+                {
+                    console.log("erroresssss")
+                    ref?.current?.scrollIntoView({ behavior: "smooth" })
+                }
             notifySuccess("Compiled...")
                 
               
@@ -253,7 +257,9 @@ const shareCode = async()=>{
             }
 
         </div>
-        <Footer/>
+        {/* <div ref={ref}> */}
+        <Footer ref={ref}/>
+        {/* </div> */}
 
    </>
     </OutputContext.Provider>

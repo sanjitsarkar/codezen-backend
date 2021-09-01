@@ -1,5 +1,6 @@
 .body {
   display: grid;
+  height: 20vh;
   grid-template: 10fr 10fr/5fr 3fr;
   @media screen and (max-width:900px) {
   grid-template: 5fr 3fr 3fr/1fr 1fr;
