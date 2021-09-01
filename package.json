@@ -10,7 +10,7 @@
     "server": "node index.js",
     "dev:server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run dev:server\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "start": "npm run server"
   },
   "keywords": [],
   "author": "",
