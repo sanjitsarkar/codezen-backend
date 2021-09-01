@@ -10,16 +10,32 @@
 
     display: flex;
     justify-content: space-between;
+ 
    .share{
+    @media screen and(max-width:600px) {
+
+     margin-left: -.5rem;
+    }
      span{
        font-size: .9rem;
      }
      .share-switch{
-    
+      @media screen and(max-width:600px) {
+        
+        .react-switch-bg{
+          font-size: .3rem !important;
+          height: auto !important;
+          width: max-content !important;
+        }
+      }
      }
      display: flex;
      align-items: center;
      gap: .5em;
+     @media screen and(max-width:600px) {
+
+      height: 2rem !important;
+    }
    }
     .run,.save{
  &:hover{
@@ -33,6 +49,10 @@
       outline: none;
       color: white;
       font-size: 0.8rem;
+    @media screen and(max-width:600px) {
+
+      width:20vw;
+    }
     }
 
     .right {

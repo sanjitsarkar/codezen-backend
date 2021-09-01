@@ -23,7 +23,7 @@ body {
   overflow: hidden;
 
   // background-color: hsl(204, 62%, 23%);
-// overflow: hidden;
+overflow-y: scroll;
 }
 .app {
   width: 100%;
@@ -64,4 +64,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: dodgerblue;
+}
+
+.ReactModal__Content{
+  width:50vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  @media screen and (max-width:500px) {
+width:80vw !important;
+
+  }
 }

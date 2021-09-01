@@ -1,13 +1,21 @@
 .body {
   display: grid;
   grid-template: 10fr 10fr 3fr/5fr 3fr;
-
+  @media screen and (max-width:900px) {
+  grid-template: 5fr 3fr 3fr/1fr 1fr;
+    
+  }
   //   background-color: yellowgreen;
   .code-editor {
     background-color: hsl(209, 19%, 30%);
     color: white;
     grid-area: 1/1/3/1;
+  @media screen and (max-width:900px) {
+    grid-area: 1/1/2/-1;
+    margin-bottom: 2rem;
+
   }
+}
   h1 {
     font-size: 1.2rem;
     font-weight: lighter;
@@ -36,6 +44,11 @@
 
     height: 80%;
   }
+  @media screen and (max-width:900px) {
+    #input,#output{
+      height:70%;
+    }
+  }
   .input-section {
     grid-area: 1/2/2/-1;
 
@@ -43,6 +56,11 @@
     
     // background-color: hsl(210, 15%, 24%);
     color: white;
+    @media screen and (max-width:900px) {
+      grid-area: 2/1/3/-1;
+
+  
+    }
   }
   .output-section {
     grid-area: 2/2/2/-1;
@@ -51,6 +69,11 @@
 
     // background-color: hsl(210, 15%, 24%);
     color: white;
+    @media screen and (max-width:900px) {
+      grid-area: 3/1/4/-1;
+      margin-top: 1px;
+  
+  }
   }
   .footer{
     resize: vertical;
@@ -58,6 +81,9 @@
     grid-area: 3/1/-1/-1;
     z-index: 99;
     background-color: hsl(209, 45%, 18%);
-
+    @media screen and (max-width:900px) {
+    display: none;
+  
+    }
   }
 }
