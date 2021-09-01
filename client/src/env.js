@@ -1,7 +1,7 @@
-let hostUrl="http://localhost:5000/api";
+let hostUrl=undefined;
 if(hostUrl===undefined)
 {
-    hostUrl = process.env.VITE_HOST_URL
+    hostUrl = process.env.HOST_URL
 }
 else{
     hostUrl+="/"
