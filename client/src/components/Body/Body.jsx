@@ -80,7 +80,7 @@ function Body() {
         e.preventDefault()
         // const event = dispatchEvent(new KeyboardEvent())
         // console.log("Event",e)
-
+console.log("Save Code")
         try {
             dispatchSaveCode({type:"LOADING"})
             console.log("Id",codeId)
@@ -115,6 +115,8 @@ function Body() {
     const handleRunCode = async(e, title, code, format, language) => {
         
         e.preventDefault()
+console.log("Run Code")
+
         dispatchRunCode({type:"LOADING"})
         await handleSaveCode(e, title, code, format, language)
         
@@ -135,8 +137,8 @@ function Body() {
                 headers: { "Content-Type": "application/json" },
                 
             })
-                response = await response.json()
-                console.log("Response",response);
+            response = await response.json()
+            console.log("Response",await response);
                 dispatchRunCode({type:"SUCCESS",payload:response})
             notifySuccess("Compiled...")
                 

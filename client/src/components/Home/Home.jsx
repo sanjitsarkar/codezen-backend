@@ -28,6 +28,7 @@ const Home = () => {
         dispatchCodes({type:"LOADING"})
     
       let response = await fetch(hostUrl+"codes",{credentials:"include"})
+      console.log(await response)
       response = await response.json()
       dispatchCodes({type:"SUCCESS",payload:response})
     
@@ -35,7 +36,7 @@ const Home = () => {
     }
     catch(e)
     {
-        console.log(e.message)
+        console.log(e.message.toString())
         dispatchCodes({type:"FAILURE",payload:e.message})
     
     }
@@ -111,7 +112,7 @@ const deleteCode = async(e,id) =>{
     try{
     // dispatchCodes({type:"LOADING"})
 
-  let response = await fetch("https://codezzen.herokuapp.com/code/"+id, {
+  let response = await fetch(hostUrl+"code/"+id, {
     method: "DELETE",
     body: JSON.stringify({ id}),
     credentials: "include",

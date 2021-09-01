@@ -38,7 +38,7 @@ export default function App() {
     dispatchAuth({type:"SUCCESS",payload:response})
     }
     catch (e) {
-      console.log(e);
+      console.log(e.message.toString());
     dispatchAuth({type:"FAILURE",payload:e.message})
 
     }

@@ -1,5 +1,6 @@
 import React,{useContext,useState} from 'react'
 import { Link } from 'react-router-dom'
+import hostUrl from '../../env'
 import { AuthContext } from '../App/App'
 import Login from '../Login/Login'
 import Signup from '../Signup/Signup'
@@ -16,7 +17,7 @@ function Header() {
               try {
     dispatchAuth({type:"LOADING"})
 
-            let response = await fetch("https://codezzen.herokuapp.com/logout", {
+            let response = await fetch(hostUrl+"logout", {
                 credentials: "include",
                 
             })

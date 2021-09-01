@@ -4,7 +4,8 @@ import {io} from "socket.io-client"
 import { OutputContext } from '../Body/Body';
 import Loading from '../Loader/Loader';
 import  "./output_section.scss"
-const SERVER = "https://codezzen.herokuapp.com";
+import hostUrl from '../../env';
+const SERVER = hostUrl;
 const socket = io(SERVER)
 function OutputSection({codeId}) {
     const outputCtx = useContext(OutputContext)

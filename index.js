@@ -4,7 +4,7 @@ const app = express()
 const http = require('http').Server(app);
 const io = require("socket.io")(http,{
     cors: {
-                origin: ["http://localhost:3000","https://codezzen.netlify.app"]
+                origin: ["http://localhost:3000","http://localhost:5000"]
             }
 });
 // const io = new Server(server,{
@@ -17,11 +17,15 @@ const codeRoutes = require("./routes/codeRoutes")
 const authRoutes = require("./routes/authRoutes")
 const mongoose = require("mongoose")
 const MongoStore = require("connect-mongo");
+// Accessing the path module
+const path = require("path");
+
+
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
 });
 // var mongoUri = "mongodb+srv://xanjit:xanjit123@todoly.ygsi4.mongodb.net/todoly?retryWrites=true&w=majority"
@@ -32,7 +36,10 @@ mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlP
     })
 })
 const sessionStore = new MongoStore({ mongoUrl:process.env.MONGODB_URI,mongoOptions:{ useUnifiedTopology: true, useNewUrlParser: true}})
-app.use(cors({origin:["https://codezzen.netlify.app"],credentials:true.session,methods:["GET","POST","DELETE"]}))
+app.use(cors({
+    origin: ["http://localhost:3000","http://localhost:5000"]
+    ,
+    credentials:true.session,methods:["GET","POST","DELETE"]}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // app.enable('trust proxy')
@@ -52,9 +59,10 @@ app.use(session({
     
 }}))
 const PORT = 5000
-app.get("/", (_, res) => {
-    res.send("Welcome to CodeZen "+_.session?.user?.name)
-})
+// if(process.env.NODE_ENV === 'production')
+// {
+
+  // }
 io.on("connection",(socket)=>{
 // console.log("Socket Connected")
 
@@ -139,5 +147,13 @@ io.on("connection",(socket)=>{
 //     if (code) return code
 //     return await Code.create({ _id: id, code: "",user_id,lang:"python",title:"untitled",format:"py" })
 //   }
-app.use("/",authRoutes)
-app.use("/",codeRoutes)
+app.use("/api",authRoutes)
+app.use("/api",codeRoutes)
+app.use(express.static('client/build'));
+console.log('Hello');
+app.get('*',(req,res)=>
+{
+  console.log("React");
+res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+});
+console.log('Hi');
