@@ -30,7 +30,7 @@ function CodeEditor({ saveCode,runCode,_code,shareCode,share,user_id}) {
     useEffect(() => {
         const s = io(SERVER)
         setSocket(s)
-        // console.log(s)
+        console.log(s)
        
         return () => {
             s.disconnect()

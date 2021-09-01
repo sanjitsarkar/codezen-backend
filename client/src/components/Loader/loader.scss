@@ -1,9 +1,9 @@
 #loader{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+ display: grid;
+ place-items: center;
+  // max-width: 100vw;
+  // min-height: fit-content;
+  // max-height: 100vw;
   @keyframes ldio-kijtbahzhda {
     0% { opacity: 1 }
     50% { opacity: .5 }

@@ -84,12 +84,27 @@
 // }
 .ace_gutter {
   background-color: hsl(208, 42%, 19%) !important;
-
   // background: hsl(210, 15%, 24%) !important;
+
 }
 .ace_gutter-active-line {
   background: hsl(210, 15%, 30%) !important;
+  @media screen and(max-width:600px) {
+    font-size:1rem !important;
+    // margin: 0;
+    
+  }
 }
+.ace_gutter-cell
+{
+  @media screen and(max-width:600px) {
+    font-size:1rem !important;
+    margin: 0;
+    padding: 0;
+    
+  }
+}
+
 .ace_comment {
   color: hsla(0, 0%, 100%, 0.37) !important;
 }

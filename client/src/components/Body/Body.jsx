@@ -223,7 +223,7 @@ const shareCode = async()=>{
     //     console.log("_code?.data?.share",_code?.data?.share)
     return (
     <OutputContext.Provider value={{output}}>
-
+<>
         <div className="body">
 {
             
@@ -236,7 +236,6 @@ const shareCode = async()=>{
             <CodeEditor saveCode={handleSaveCode} runCode={handleRunCode} _code = {_code.data} shareCode = {shareCode} share = {share} user_id = {_auth?.data?.user?.id}/>
             <InputSection setInput={setInput} codeId={codeId}  />
             <OutputSection codeId={codeId} />
-            <Footer/>
                     </>):(
                      
                             <Redirect to="/" />
@@ -254,7 +253,9 @@ const shareCode = async()=>{
             }
 
         </div>
-   
+        <Footer/>
+
+   </>
     </OutputContext.Provider>
     )
 }

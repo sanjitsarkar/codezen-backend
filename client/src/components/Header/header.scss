@@ -17,6 +17,13 @@
     #user_name{
       font-size: 1rem;
       font-weight: normal;
+      @media screen and (max-width:400px) {
+        
+        width:4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
     button{
       background: white;
