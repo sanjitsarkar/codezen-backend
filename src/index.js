@@ -12,27 +12,27 @@ const io = require("socket.io")(http, {
 const { authRoutes, codeRoutes } = require("./api/routes");
 const connectMongo = require("./config");
 const PORT = process.env.PORT || 5000;
-
 connectMongo(() => {
-  app.listen(PORT, () => {});
+  http.listen(PORT);
+});
+io.on("connection", (socket) => {
+  socket.on("code", ({ codeId, code, input }) => {
+    socket.broadcast.emit(codeId, { codeId, code, input });
+  });
+  socket.on("run", ({ codeId, codeOutput }) => {
+    socket.broadcast.emit(codeId + "output", { codeOutput });
+  });
 });
 app.use(
   cors({
     origin: [process.env.CLIENT_URL],
   })
 );
+app.set("io", io);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-io.on("connection", (socket) => {
-  socket.on("send_share", (share, id) => {
-    socket.join(id);
-    console.log("Id", id);
-    console.log("Share recieved ", share);
-    socket.broadcast.emit("send_share", share);
-    console.log("Share send", share);
-  });
-});
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/codes", codeRoutes);

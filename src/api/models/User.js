@@ -49,7 +49,6 @@ userSchema.statics.login = async function (email, password) {
       );
       user.token = token;
       user.password = undefined;
-      console.log("user", user);
       return user;
     } else {
       throw Error("Wrong password");

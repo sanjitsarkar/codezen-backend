@@ -75,7 +75,6 @@ ${code}`;
           });
         });
       } else if (lang === "cpp" || lang === "c") {
-        // console.log("codes",code);
 
         var inputFile = path.join(rpath, "input.txt");
         const _code = `main()

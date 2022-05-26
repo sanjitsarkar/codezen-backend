@@ -43,15 +43,12 @@ const toggleSharing = async (req, res) => {
 
 const searchCodesController = async (req, res) => {
   const { search } = req.body;
-  console.log("search", search);
   try {
     let _search = `\\${search}\\`;
-    //  _search = new RegExp("^d$",'i')
     const codes = await Code.find({
       user_id: req.user.id,
       $text: { $search: _search, $caseSensitive: false },
     });
-    console.log("codes", codes);
     if (!codes) res.json({ status: "Wrong ID" });
     res.json(codes);
   } catch (e) {
