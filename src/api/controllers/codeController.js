@@ -12,7 +12,9 @@ const fetchCodeController = async (req, res) => {
 };
 const fetchCodesController = async (req, res) => {
   try {
-    const result = await Code.find({ user_id: req.user.id });
+    const result = await Code.find({ user_id: req.user.id }).sort({
+      updatedAt: -1,
+    });
     res.json({ codes: result });
   } catch (e) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -21,7 +23,9 @@ const fetchCodesController = async (req, res) => {
 const fetchCodesByLanguageController = async (req, res) => {
   const { lang } = req.params;
   try {
-    const result = await Code.find({ user_id: req.user.id, lang });
+    const result = await Code.find({ user_id: req.user.id, lang }).sort({
+      updatedAt: -1,
+    });
     res.json({ codes: result });
   } catch (e) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -29,9 +33,9 @@ const fetchCodesByLanguageController = async (req, res) => {
 };
 const fetchCodesByDateController = async (req, res) => {
   const { sortType } = req.params;
-  var upadated_at = "upadated_at";
+  var upadated_at = "updatedAt";
   if (sortType === "desc") {
-    upadated_at = "-upadated_at";
+    upadated_at = "-updatedAt";
   }
 
   try {

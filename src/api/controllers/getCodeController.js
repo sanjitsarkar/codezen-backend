@@ -16,7 +16,9 @@ const getCodeController = async (req, res) => {
 };
 const getCodesController = async (req, res) => {
   try {
-    const _codes = await Code.find({ user_id: req.user.id });
+    const _codes = await Code.find({ user_id: req.user.id }).sort({
+      updatedAt: -1,
+    });
     if (!_codes) res.json({ status: "Wrong ID" });
     res.json(_codes);
   } catch (e) {
@@ -48,7 +50,7 @@ const searchCodesController = async (req, res) => {
     const codes = await Code.find({
       user_id: req.user.id,
       $text: { $search: _search, $caseSensitive: false },
-    });
+    }).sort({ updatedAt: -1 });
     if (!codes) res.json({ status: "Wrong ID" });
     res.json(codes);
   } catch (e) {
