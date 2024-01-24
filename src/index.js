@@ -11,10 +11,12 @@ const io = require("socket.io")(http, {
 
 const { authRoutes, codeRoutes } = require("./api/routes");
 const connectMongo = require("./config");
-const PORT = process.env.PORT || 5000;
-connectMongo(() => {
+const PORT = process.env.PORT || 8000;
+(async () => {
+  await connectMongo()
   http.listen(PORT);
-});
+})();
+
 io.on("connection", (socket) => {
   socket.on("code", ({ codeId, code, input }) => {
     socket.broadcast.emit(codeId, { codeId, code, input });
@@ -33,6 +35,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+app.get('/', (req, res) => res.send('Hello World'))
 app.use("/api/auth", authRoutes);
 app.use("/api/codes", codeRoutes);
